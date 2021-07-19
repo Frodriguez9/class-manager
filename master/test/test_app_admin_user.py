@@ -1,13 +1,11 @@
-import os
 import unittest
 from unittest.mock import patch
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-import app
-from app.app import create_app
-from app.models import setup_db, subject_student, Subject, Student
-from app.functions import query_a_record
+from master.app.app import create_app
+from master.app.models import setup_db, subject_student, Subject, Student
+from master.app.functions import query_a_record
 
 
 class AppTestCaseAdminUser(unittest.TestCase):
@@ -60,7 +58,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
                 It patches the verify_decode_jwt() function
                 and returns mock payload """
 
-        self.patcher = patch('auth.auth.verify_decode_jwt', return_value=self.mock_payload)
+        self.patcher = patch('master.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
         self.patcher.start()
 
         # binds the app to the current context
@@ -73,17 +71,20 @@ class AppTestCaseAdminUser(unittest.TestCase):
 
 
         # set initial records in database to handel some tests
-        self.client().post('/subjects',
-                             headers=self.header,
-                             json={
-                                  "category":"name",
-                                  "start": [2022, 11, 11, 1, 3],
-                                  "zoom_link": "https://zoom.us.."
-                                  })
+        # the if statement provides some resource management
+        if len(Subject.query.all()) == 0:
+            self.client().post('/subjects',
+                                 headers=self.header,
+                                 json={
+                                      "category":"name",
+                                      "start": [2022, 11, 11, 1, 3],
+                                      "zoom_link": "https://zoom.us.."
+                                      })
 
-        self.client().post('/students',
-                                 json={"name":"name",
-                                       "last_name": "Last Name"})
+        if len(Student.query.all()) == 0:
+            self.client().post('/students',
+                                     json={"name":"name",
+                                           "last_name": "Last Name"})
 
         self.subject = query_a_record(Subject)
         self.subject_id = self.subject.id
@@ -118,6 +119,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
                                  headers=self.header,
                                  json=self.new_subject)
         data = json.loads(res.data)
+
         test_insertion = Subject.query.filter_by(
                 id=data['new_subject']['id']).one_or_none()
 
@@ -149,10 +151,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
     # ---------------------------------------------------------
 
     def test_succesful_patch_subjects(self):
-        subject_to_patch = query_a_record(Subject)
-        id = subject_to_patch.id
-
-        res = self.client().patch('/subjects/{}'.format(id),
+        res = self.client().patch('/subjects/{}'.format(self.subject_id),
                                  headers=self.header,
                                  json={"category":"New category"})
 
@@ -169,10 +168,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
 
     def test_400_wrong_key_argument_to_patch_subject(self):
         '''tests validity of keys passed in json request'''
-        subject_to_patch = query_a_record(Subject)
-        id = subject_to_patch.id
-
-        res = self.client().patch('/subjects/{}'.format(id),
+        res = self.client().patch('/subjects/{}'.format(self.subject_id),
                                  headers=self.header,
                                  json={"wrong_key":"invalid_value"})
 
@@ -185,13 +181,10 @@ class AppTestCaseAdminUser(unittest.TestCase):
     # ---------------------------------------------------------
 
     def test_succesful_subject_deletion(self):
-        subject_to_delete= query_a_record(Subject)
-        id = subject_to_delete.id
-
-        res = self.client().delete('/subjects/{}'.format(id),
+        res = self.client().delete('/subjects/{}'.format(self.subject_id),
                                     headers=self.header)
         data = json.loads(res.data)
-        check_delation = Subject.query.filter_by(id=id).one_or_none()
+        check_delation = Subject.query.filter_by(id=self.subject_id).one_or_none()
 
         self.assertTrue(res.status_code, 200)
         self.assertEqual(check_delation, None)
@@ -234,12 +227,6 @@ class AppTestCaseAdminUser(unittest.TestCase):
     # ---------------------------------------------------------
 
     def test_sucessful_student_enrollment(self):
-        #subject = query_a_record(Subject)
-        #subject_id = subject.id
-
-        #student = query_a_record(Student)
-        #student_id = student.id
-
         res = self.client().post('students/{}'.format(self.student_id),
                                 headers=self.header,
                                 json={"subject_id":self.subject_id})
@@ -250,17 +237,56 @@ class AppTestCaseAdminUser(unittest.TestCase):
         self.assertTrue(data['students'])
 
 
+    def test_400_wrong_key_arg_to_enroll_student(self):
+        res = self.client().post('students/{}'.format(self.student_id),
+                                headers=self.header,
+                                json={"wrong_ke":self.subject_id})
+
+        self.assertEqual(res.status_code, 400)
+
+
+    def test_404_no_student_found_for_enrollment(self):
+        res = self.client().post('students/{}'.format(1000),
+                                headers=self.header,
+                                json={"subject_id":self.subject_id})
+
+        self.assertEqual(res.status_code, 404)
+
+
+    def test_404_no_subject_found_for_enrollment(self):
+        res = self.client().post('students/{}'.format(self.student_id),
+                                headers=self.header,
+                                json={"subject_id":100000})
+
+        self.assertEqual(res.status_code, 404)
+
     # ---------------------------------------------------------
-    #  POST /students/id --> enroll existent student to a subject
+    #  GET /subjects/<subject_id>/students
     #   test: 200
-    #         400 lacks/wrong key
+    #         404 not_found
     # ---------------------------------------------------------
+
+    def test_succesful_student_query_by_course(self):
+        res = self.client().get(
+            '/subjects/{}/students'.format(
+                self.subject_id),
+                headers=self.header)
+
+        self.assertEqual(res.status_code, 200)
+
+
+    def test_404_course_not_found_to_query_students_by_course(self):
+        res = self.client().get(
+            '/subjects/{}/students'.format(
+                100000),
+                headers=self.header)
+
+        self.assertEqual(res.status_code, 404)
 
 
     def tearDown(self):
         self.patcher.stop()
 
-if __name__ == "__main__":
-    unittest.main()
 
-# self.assertTrue(data['questions'])
+#if __name__ == "__main__":
+#    unittest.main()

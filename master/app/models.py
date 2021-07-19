@@ -30,8 +30,8 @@ subject_student
         student --< student_subject >-- subject
 '''
 subject_student = db.Table('subject_student',
-    db.Column('student_id', db.Integer, db.ForeignKey('people.id', ondelete='cascade', onupdate="cascade"),primary_key=True),
-    db.Column('subject_id', db.Integer, db.ForeignKey('subjects.id', ondelete='cascade', onupdate="cascade"), primary_key=True)
+    db.Column('student_id', db.Integer, db.ForeignKey('people.id')),
+    db.Column('subject_id', db.Integer, db.ForeignKey('subjects.id'))
 )
 
 '''

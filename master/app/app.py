@@ -1,3 +1,5 @@
+import sys, os
+
 from flask import (
     Flask,
     request,
@@ -8,7 +10,7 @@ from flask import (
     session
     )
 
-from .models import (
+from master.app.models import (
     db,
     setup_db,
     Subject,
@@ -17,14 +19,14 @@ from .models import (
     )
 from flask_cors import CORS
 from six.moves.urllib.parse import urlencode
-from .functions import (
+from master.app.functions import (
     format_date,
     build_login_link,
     validate_json_keys,
     check_required_data
     )
+
 from master.auth.auth import AuthError, requires_auth
-import os
 import http.client
 
 
@@ -154,6 +156,7 @@ def create_app(test_config=None):
             "updated_info": subject.info()
         })
 
+
     '''
     DELETE /subjects/<id>
     '''
@@ -217,8 +220,8 @@ def create_app(test_config=None):
              "subject_id": some integer
              }
         '''
-        if "subject_id" not in data:
-            abort(400)
+        # error 400 handled in check_required_data()
+        check_required_data(['subject_id'], data)
 
         student = Student.query.filter_by(id=student_id).one_or_none()
         subject = Subject.query.filter_by(id=data["subject_id"]).one_or_none()

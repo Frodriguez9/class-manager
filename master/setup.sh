@@ -10,3 +10,7 @@ export AUTH_CALL_BACK_URL="http://127.0.0.1:5000/callback"
 ## app secret keys
 
 export APP_SECRET_KEY='pN1qArB6GIPgB1N_EBrCBzrgtZHsa1bI0CPPGQlgQArS7nztazgJUxnov6Gg7PRD'
+
+## python patch
+
+export PYTHONPATH='/Users/frodriguez/Desktop/my-apps/capstone-project'

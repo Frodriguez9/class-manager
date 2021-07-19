@@ -1,14 +1,14 @@
-import os
 import unittest
 from unittest.mock import patch
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-import app
-from app.app import create_app
-from app.models import setup_db, subject_student, Subject, Student
+from master.app.app import create_app
+from master.app.models import setup_db, subject_student, Subject, Student
+from master.app.functions import query_a_record
 
-class AppTestCaseAdminUser(unittest.TestCase):
+
+class AppTestCaseAssistantUser(unittest.TestCase):
     """This class represents the app test case"""
 
     def setUp(self):
@@ -20,13 +20,13 @@ class AppTestCaseAdminUser(unittest.TestCase):
             'postgres','localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
-        # mock_payload for the assistant user
+        # mock_payload for the Admin user
         self.mock_payload = {
               "iss": "https://nandodev.us.auth0.com/",
-              "sub": "auth0|60e8b100a8522a00691290ad",
+              "sub": "auth0|60e1d9c42a44eb006904a174",
               "aud": "courses",
-              "iat": 1625862632,
-              "exp": 1625869832,
+              "iat": 1625511082,
+              "exp": 1625518282,
               "azp": "7HMxHXT4PH7JEoAyhC9nU3kxKCEPz8ln",
               "scope": "",
               "permissions": [
@@ -40,7 +40,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
         self.new_subject = {
              "category":"Some Category",
              "start": [2022, 11, 11, 1, 3],
-             "zoom_link": "https://zoom.us/s/1100000?iIifQ.wfY2ldlb82SWo3TsR77lBiJjR53TNeFUiKbLyCvZZjw"
+             "zoom_link": "https://zoom.us/s/110..."
              }
 
         self.subject_wrong_data = {
@@ -48,13 +48,15 @@ class AppTestCaseAdminUser(unittest.TestCase):
              "start": [2022, 11, 11, 1, 3]
              }
 
+
         """ self.patcher = patch()
                 Creates inline mock payload for the admin user.
                 It patches the verify_decode_jwt() function
                 and returns mock payload """
 
-        self.patcher = patch('auth.auth.verify_decode_jwt', return_value=self.mock_payload)
+        self.patcher = patch('master.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
         self.patcher.start()
+
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
@@ -62,6 +64,33 @@ class AppTestCaseAdminUser(unittest.TestCase):
             # create all tables
             self.db.create_all()
 
+
+
+        # set initial records in database to handel some tests
+        # the if statement provides some resource management
+        if len(Subject.query.all()) == 0:
+            self.client().post('/subjects',
+                                 headers=self.header,
+                                 json={
+                                      "category":"name",
+                                      "start": [2022, 11, 11, 1, 3],
+                                      "zoom_link": "https://zoom.us.."
+                                      })
+
+        if len(Student.query.all()) == 0:
+            self.client().post('/students',
+                                     json={"name":"name",
+                                           "last_name": "Last Name"})
+
+        self.subject = query_a_record(Subject)
+        self.subject_id = self.subject.id
+
+        self.student = query_a_record(Student)
+        self.student_id = self.student.id
+    # ---------------------------------------------------------
+    #  GET /subjects
+    #   test: 200
+    # ---------------------------------------------------------
 
     def test_succesful_query_of_all_subjects(self):
         ''' retrives all available courses '''
@@ -71,16 +100,108 @@ class AppTestCaseAdminUser(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
 
+    # ---------------------------------------------------------
+    #  POST /subjects
+    #   test: 403 unauthorized
+    # ---------------------------------------------------------
 
-    def test_403_unauthorized_subject_creation(self):
+
+    def test_403_unauthorized_user_for_subject_creation(self):
         res = self.client().post('/subjects',
                                  headers=self.header,
-                                 json=self.subject_wrong_data)
+                                 json=self.new_subject)
+
         self.assertEqual(res.status_code, 403)
+
+
+
+    # ---------------------------------------------------------
+    #  PATCH /subjects/id
+    #   test: 403 unauthorized
+    # ---------------------------------------------------------
+
+    def test_403_unauthorized_patch_subjects(self):
+        res = self.client().patch('/subjects/{}'.format(self.subject_id),
+                                 headers=self.header,
+                                 json={"category":"New category"})
+
+        self.assertEqual(res.status_code, 403)
+
+
+    # ---------------------------------------------------------
+    #  DELETE /subjects/id
+    #   test: 403 unauthorized
+    # ---------------------------------------------------------
+
+    def test_403_unauthorized_for_delation(self):
+        res = self.client().delete('/subjects/{}'.format(self.subject_id),
+                                 headers=self.header)
+
+        self.assertEqual(res.status_code, 403)
+
+    # ---------------------------------------------------------
+    #  POST /students
+    #   test: 200
+    #         400 lacks/wrong key
+    # ---------------------------------------------------------
+
+    def test_succesful_student_creation(self):
+        res = self.client().post('/students',
+                                 json={"name":"New Student",
+                                       "last_name": "Last Name"})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["new_student"])
+
+    def test_400_wrong_key_arg_to_create_student(self):
+        "checks that all required arguments are provided in json request"
+        res = self.client().post('/students',
+                                 json={"name":"No"
+                                       })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+
+    # ---------------------------------------------------------
+    #  POST /students/id --> enroll existent student to a subject
+    #   test: 403 unauthorized
+    # ---------------------------------------------------------
+
+    def test_403_unauthorized_to_enroll_student(self):
+        res = self.client().post('students/{}'.format(self.student_id),
+                                headers=self.header,
+                                json={"subject_id":self.subject_id})
+
+        self.assertEqual(res.status_code, 403)
+
+    # ---------------------------------------------------------
+    #  GET /subjects/<subject_id>/students
+    #   test: 200
+    #         404 not_found
+    # ---------------------------------------------------------
+
+    def test_succesful_student_query_by_course(self):
+        res = self.client().get(
+            '/subjects/{}/students'.format(
+                self.subject_id),
+                headers=self.header)
+
+        self.assertEqual(res.status_code, 200)
+
+
+    def test_404_course_not_found_to_query_students_by_course(self):
+        res = self.client().get(
+            '/subjects/{}/students'.format(
+                100000),
+                headers=self.header)
+
+        self.assertEqual(res.status_code, 404)
 
 
     def tearDown(self):
         self.patcher.stop()
 
-if __name__ == "__main__":
-    unittest.main()
+
+#if __name__ == "__main__":
+#    unittest.main()
