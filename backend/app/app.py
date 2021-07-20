@@ -10,7 +10,7 @@ from flask import (
     session
     )
 
-from master.app.models import (
+from backend.app.models import (
     db,
     setup_db,
     Subject,
@@ -19,14 +19,14 @@ from master.app.models import (
     )
 from flask_cors import CORS
 from six.moves.urllib.parse import urlencode
-from master.app.functions import (
+from backend.app.functions import (
     format_date,
     build_login_link,
     validate_json_keys,
     check_required_data
     )
 
-from master.auth.auth import AuthError, requires_auth
+from backend.auth.auth import AuthError, requires_auth
 import http.client
 
 

@@ -1,11 +1,4 @@
-import unittest
-from unittest.mock import patch
-import json
-from flask_sqlalchemy import SQLAlchemy
-
-from master.app.app import create_app
-from master.app.models import setup_db, subject_student, Subject, Student
-from master.app.functions import query_a_record
+from test.config import *
 
 
 class AppTestCaseAssistantUser(unittest.TestCase):
@@ -54,7 +47,7 @@ class AppTestCaseAssistantUser(unittest.TestCase):
                 It patches the verify_decode_jwt() function
                 and returns mock payload """
 
-        self.patcher = patch('master.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
+        self.patcher = patch('backend.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
         self.patcher.start()
 
         # binds the app to the current context
