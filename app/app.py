@@ -10,7 +10,7 @@ from flask import (
     session
     )
 
-from app.models import (
+from .models import (
     db,
     setup_db,
     Subject,
@@ -19,7 +19,7 @@ from app.models import (
     )
 from flask_cors import CORS
 from six.moves.urllib.parse import urlencode
-from app.functions import (
+from .functions import (
     format_date,
     build_login_link,
     validate_json_keys,
