@@ -50,7 +50,7 @@ class AppTestCaseAdminUser(unittest.TestCase):
                 It patches the verify_decode_jwt() function
                 and returns mock payload """
 
-        self.patcher = patch('backend.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
+        self.patcher = patch('app.auth.auth.verify_decode_jwt', return_value=self.mock_payload)
         self.patcher.start()
 
         # binds the app to the current context

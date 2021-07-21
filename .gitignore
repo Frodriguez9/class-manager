@@ -19,4 +19,6 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-**/setup.sh 
+setup.sh
+**/setup.sh
+*/setup.sh
