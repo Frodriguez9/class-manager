@@ -22,3 +22,5 @@ Thumbs.db
 setup.sh
 **/setup.sh
 */setup.sh
+
+app/migrations
