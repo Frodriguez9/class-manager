@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 
 from flask import (
     Flask,
@@ -36,7 +37,6 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
-
     # ---------------------------------------------------------
     # Public routes
     # ---------------------------------------------------------
@@ -53,7 +53,6 @@ def create_app(test_config=None):
             "success": True,
             "subjects": courses
         })
-
 
     # ---------------------------------------------------------
     # Subject CREATE, PATCH, DELETE
@@ -75,7 +74,7 @@ def create_app(test_config=None):
             {
              'category':'Some Category',
              'start': [yyyy, mm, dd, hh, mm],
-             'zoom_link': "https://zoom.us/s/1100000?iIifQ.wfY2ldlb82SWo3TsR77lBiJjR53TNeFUiKbLyCvZZjw"
+             'zoom_link': "https://zoom.us/s/110000..."
              }
 
              where dd == [1-31]
@@ -102,7 +101,6 @@ def create_app(test_config=None):
 
         })
 
-
     '''
     PATCH /subjects/id
         modify an existing online class.
@@ -121,20 +119,22 @@ def create_app(test_config=None):
             {
              opt_"category": "new_category",
              opt_"start": [yyyy, mm, dd, hh, mm],
-             opt_"zoom_link": "https://zoom.us/s/1100000?iIifQ.wfY2ldlb82SWo3TsR77lBiJjR53TNeFUiKbLyCvZZjw",
+             opt_"zoom_link": "https://zoom.us/s/1100000...",
              opt_"withdraw_students": [X, Y]
              }
 
              where dd == [1-31]
         '''
-        acceptable_keys = ["category", "start", "zoom_link", "withdraw_students"]
+        acceptable_keys = ["category",
+                           "start",
+                           "zoom_link",
+                           "withdraw_students"]
         # return error 400 if does not validate
         validate_json_keys(acceptable_keys, data)
 
         subject = Subject.query.filter_by(id=subject_id).one_or_none()
         if not subject:
             abort(404)
-
 
         if "category" in data:
             subject.category = data["category"]
@@ -155,7 +155,6 @@ def create_app(test_config=None):
             "success": True,
             "updated_info": subject.info()
         })
-
 
     '''
     DELETE /subjects/<id>
@@ -196,7 +195,8 @@ def create_app(test_config=None):
         check_required_data(required_keys, data)
 
         try:
-            new_student = Student(name=data["name"], last_name=data["last_name"])
+            new_student = Student(name=data["name"],
+                                  last_name=data["last_name"])
             new_student.insert()
 
         except:
@@ -207,7 +207,6 @@ def create_app(test_config=None):
             "new_student": new_student.info()
 
         })
-
 
     @app.route('/students/<int:student_id>', methods=["POST"])
     @requires_auth('post:student-subject')
@@ -234,7 +233,8 @@ def create_app(test_config=None):
             subject.students.append(student)
             subject.update()
 
-            enrolled_students = [student.info() for student in subject.students]
+            enrolled_students = [student.info()
+                                 for student in subject.students]
 
         except:
             abort(500)
@@ -245,11 +245,9 @@ def create_app(test_config=None):
             "students": enrolled_students
         })
 
-
     # ---------------------------------------------------------
     # Student QUERY
     # ---------------------------------------------------------
-
 
     @app.route('/subjects/<int:subject_id>/students')
     @requires_auth('get:students')
@@ -267,15 +265,12 @@ def create_app(test_config=None):
             "students": info["students"]
         })
 
-
-
     # ---------------------------------------------------------
     # Login, callback handler, logout
     # ---------------------------------------------------------
 
     @app.route('/login')
     def test_auth0():
-
         auth_link = build_login_link()
 
         return redirect(auth_link)
@@ -289,30 +284,39 @@ def create_app(test_config=None):
     def callback_handling():
         # TODO: Check how to obtain to save the token info in the flask
         # session so that you can unse in the ''/logout' route
-        '''code = request.args.get('code')
+        '''
+        code = request.args.get('code')
         conn = http.client.HTTPSConnection("")
 
-        payload = f"grant_type=authorization_code&client_id=7HMxHXT4PH7JEoAyhC9nU3kxKCEPz8ln&client_secret=pN1qArB6GIPgB1N_EBrCBzrgtZHsa1bI0CPPGQlgQArS7nztazgJUxnov6Gg7PRD&code={code}&redirect_uri=http://127.0.0.1:5000/callback"
+        payload = f"grant_type=authorization_code&client_id=/
+        7HMxHXT4PH7JEoAyhC9nU3kxKCEPz8ln&client_secret=pN1qA/
+        rB6GIPgB1N_EBrCBzrgtZHsa1bI0CPPGQlgQArS7nztazgJUxnov/
+        6Gg7PRD&code={code}&redirect_uri=http://127.0.0.1:5000/callback"
 
         headers = { 'content-type': "application/x-www-form-urlencoded" }
 
-        conn.request("POST", "/nandodev.us.auth0.com/oauth/token", payload, headers)
+        conn.request("POST",
+                     "/nandodev.us.auth0.com/oauth/token",
+                     payload,
+                     headers)
 
         res = conn.getresponse()
         data = res.read()
 
-        print(data.decode("utf-8"))'''
+        print(data.decode("utf-8"))
+        '''
 
         return redirect('/subjects')
-
 
     @app.route('/logout')
     def user_logout():
         session.clear()
-        params = {'returnTo': url_for('query_courses', _external=True), 'client_id': os.environ['AUTH_CLIENT_ID']}
+        params = {'returnTo': url_for('query_courses', _external=True),
+                  'client_id': os.environ['AUTH_CLIENT_ID']}
         a = os.environ['AUTH_URL'] + '/v2/logout?' + urlencode(params)
-        return redirect(os.environ['AUTH_URL'] + '.auth0.com' + '/v2/logout?' + urlencode(params))
 
+        return redirect(os.environ['AUTH_URL'] + '.auth0.com' +
+                        '/v2/logout?' + urlencode(params))
 
     # ---------------------------------------------------------
     # error handlers
@@ -326,7 +330,6 @@ def create_app(test_config=None):
             "message": "Bad Request"
         }), 400
 
-
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
@@ -334,7 +337,6 @@ def create_app(test_config=None):
             "error": 404,
             "message": "resource not found"
         }), 404
-
 
     @app.errorhandler(422)
     def unprocessable(error):
@@ -352,7 +354,6 @@ def create_app(test_config=None):
             "message": "Server Failure"
         }), 500
 
-
     '''
     error handler for AuthError
         error handler should conform to general task above
@@ -368,8 +369,3 @@ def create_app(test_config=None):
         }), error.status_code
 
     return app
-
-app = create_app()
-
-if __name__ == '__main__':
-    app.run()

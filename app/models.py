@@ -1,6 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-#from sqlalchemy import Column. String, create_engine
 import json
 import os
 
@@ -13,6 +12,8 @@ migrate = Migrate()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
+
+
 def setup_db(app, database_path=database_path):
     app.config['SQLALCHEMY_DATABASE_URI'] = database_path
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -20,8 +21,7 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     migrate.init_app(app, db)
 
-
-    #db.create_all()
+    # db.create_all()
 
 
 '''
@@ -29,15 +29,20 @@ subject_student
     helper table:
         student --< student_subject >-- subject
 '''
+
 subject_student = db.Table('subject_student',
-    db.Column('student_id', db.Integer, db.ForeignKey('people.id')),
-    db.Column('subject_id', db.Integer, db.ForeignKey('subjects.id'))
-)
+                           db.Column('student_id',
+                                     db.Integer,
+                                     db.ForeignKey('people.id')),
+                           db.Column('subject_id',
+                                     db.Integer,
+                                     db.ForeignKey('subjects.id')))
 
 '''
 Subject
     Online class category - where students enroll
 '''
+
 
 class Subject(db.Model):
     __tablename__ = 'subjects'
@@ -47,9 +52,9 @@ class Subject(db.Model):
     start = db.Column(db.DateTime, nullable=False)
     zoom_link = db.Column(db.String, nullable=False)
     students = db.relationship('Student',
-                                secondary=subject_student,
-                                lazy='joined',
-                                backref=db.backref('courses', lazy='joined'))
+                               secondary=subject_student,
+                               lazy='joined',
+                               backref=db.backref('courses', lazy='joined'))
 
     '''
     info()
@@ -112,6 +117,8 @@ class Subject(db.Model):
 Student
     End users. People exploring online learning
 '''
+
+
 class Student(db.Model):
     __tablename__ = 'people'
 
@@ -167,7 +174,6 @@ class Student(db.Model):
 
     def update(self):
         db.session.commit()
-
 
     def __repr__(self):
         return f'<id: {self.id} last_name: {self.last_name}>'

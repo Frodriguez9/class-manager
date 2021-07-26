@@ -11,8 +11,8 @@ format_date()
     in PostgreSQL dataTime structure
 '''
 
-def format_date(starting_time):
 
+def format_date(starting_time):
     year = starting_time[0]
     month = starting_time[1]
     day = starting_time[2]
@@ -29,10 +29,12 @@ def format_date(starting_time):
 
     return dateTime
 
+
 '''
 build_login_link()
     Construct the Auth0 url to authenticate users
 '''
+
 
 def build_login_link(URL=os.environ["AUTH_URL"],
                      AUDIENCE=os.environ["AUTH_AUDIENCE"],
@@ -41,13 +43,13 @@ def build_login_link(URL=os.environ["AUTH_URL"],
                      callbackPath='',
                      response_type='token&'):
 
-    link = 'https://';
+    link = 'https://'
     link += URL + '.auth0.com'
-    link += '/authorize?';
-    link += 'audience=' + AUDIENCE + '&';
-    link += 'response_type=' + response_type;
-    link += 'client_id=' + CLIENT_ID + '&';
-    link += 'redirect_uri=' + CALL_BACK_URL + callbackPath;
+    link += '/authorize?'
+    link += 'audience=' + AUDIENCE + '&'
+    link += 'response_type=' + response_type
+    link += 'client_id=' + CLIENT_ID + '&'
+    link += 'redirect_uri=' + CALL_BACK_URL + callbackPath
 
     return link
 
@@ -58,10 +60,13 @@ check_required_data()
     fields. Usually called in POST requests when creating
     a new record. Eg: New subject or new student.
 '''
+
+
 def check_required_data(required_keys, incoming_data):
     for k in required_keys:
         if k not in incoming_data:
             abort(400)
+
 
 '''
 validate_json_keys()
@@ -69,6 +74,8 @@ validate_json_keys()
     Usually invoked in PATCH requests when editing
     an existing record. Eg: Modifing a subject starting_time.
 '''
+
+
 def validate_json_keys(acceptable_keys, incoming_data):
     for key in incoming_data:
         if key not in acceptable_keys:
@@ -81,9 +88,11 @@ query_a_records()
     Typically used in unittest.
     return none if no record exists.
         Parameters:
-            model: the table name of the model for which the record is desired
+            model: the table name of the model for
+            which the record is desired
 
 '''
+
 
 def query_a_record(model):
     try:
