@@ -40,6 +40,27 @@ def create_app(test_config=None):
     # ---------------------------------------------------------
     # Public routes
     # ---------------------------------------------------------
+    @app.route('/')
+    def index():
+        return '''Welcome to my Capston Project!
+
+                This is a work in progress. Eventually, it will be powered by
+                Zoom, and you will be able to manage your online
+                classes. For now, you can have a taste of how the
+                endpoints are working.
+
+                To use some enpoints, you will need especial permissions so
+                we have created 2 users that you can use to access those
+                endpoints.
+
+                Login endpoint:
+
+                https://class-manager-fard.herokuapp.com/login
+
+                
+
+                Here is a summary
+        '''
 
     @app.route('/subjects')
     def query_courses():
