@@ -42,7 +42,7 @@ def create_app(test_config=None):
     # ---------------------------------------------------------
     @app.route('/')
     def index():
-        return '''Welcome to my Capston Project! \n
+        return '''<p> Welcome to my Capston Project! </p>
 
                 This is a work in progress. Eventually, it will be powered by
                 Zoom, and you will be able to manage your online
