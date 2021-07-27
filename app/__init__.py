@@ -42,7 +42,7 @@ def create_app(test_config=None):
     # ---------------------------------------------------------
     @app.route('/')
     def index():
-        return '''Welcome to my Capston Project!
+        return '''Welcome to my Capston Project! \n
 
                 This is a work in progress. Eventually, it will be powered by
                 Zoom, and you will be able to manage your online
@@ -57,7 +57,7 @@ def create_app(test_config=None):
 
                 https://class-manager-fard.herokuapp.com/login
 
-                
+
 
                 Here is a summary
         '''
