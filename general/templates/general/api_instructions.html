@@ -1,0 +1,326 @@
+{% extends "general/index.html" %}
+{% block title %} Class-Manager API {% endblock %}
+{% block head %} {{ super() }} {% endblock %} <!-- {{ super() }}renders the contents of a block defined in the parent template -->
+{% block content %}
+
+  <div class="div-submain" id="API-div">
+    <h2>API Reference 😎</h2>
+    <p>
+      The Class-Manager API is organized around REST. Our API returns
+      <a href="https://www.json.org/json-en.html">JSON-encoded</a>
+      responses, and uses standard HTTP response codes, verbs, and
+      authentication.
+      <br><br>
+
+      <b>Base URL</b> <br>
+      <ul>
+        https://class-manager-fard.herokuapp.com
+      </ul>
+    </p>
+    <div class=div-submain-API id="Authentication-div">
+      <h3>AUTHENTICATION</h3>
+      <p>
+        Class-Manager uses
+        <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JWTs</a>
+        to authenticate your API requests for endpoints that require
+        permissions. When you sing-up/login, you will be assigned an
+        expirable token found in the URL arguments after login.
+        <br><br>
+
+        From the URL, copy this token from 'access_token' up until the '&' symbol
+        before expires_in.
+        <br><br>
+
+        Example of URL after login:
+        <br><br>
+        &ensp; https://class-manager-fard.herokuapp.com/subjects#<b>access_token</b>=eyJhbGciOiJSUzI1NiI<...>&expires_in=7200&token_type=Bearer
+        <br><br>
+
+        You will copy: <i>"eyJhbGciOiJSUzI1NiI<...>"</i> and use this token
+        to set up your Bearer Header in Postman to perform your requests.
+        <br><br>
+        </p>
+        <h4>Testing Class-Manager API</h4>
+        <p>
+          For testing purposes, we suggest logging in with the Admin user
+          provided in the <i>Pre-register Users</i> section above, which
+          has access to all of the endpoints.
+        </p>
+    </div>
+
+    <div class=div-submain-API id="errors-div">
+      <h3>ERRORS</h3>
+      <p>
+        Class-Manager uses conventional HTTP response code to indicate success
+        or failure of an API request. In general, code <b>2xx</b> indicate
+        success. Code <b>4xx</b> indicate failure. Codes <b>5xx</b> indicate
+        an error on our server.
+      </p>
+      <h2>Summary of Errors</h2>
+      <ul>
+        <li><b>400 - Bad Request</b></li>
+        <li><b>404 - Resource Not Found</b></li>
+        <li><b>422 - Unprocessable</b></li>
+        <li><b>401 - Invalid Header</b></li>
+        <li><b>403 - Unauthorized</b></li>
+        <li><b>500 - Server Failure</b></li>
+      </ul>
+
+      <p>
+        <b>Error Example:</b> <br><br>
+        { <br>
+          'success': false <br>
+           'error': 400, <br>
+           'code': 'invalid_header' <br>
+          'message': 'Unable to parse authentication token.' <br>
+        } <br>
+    </div>
+
+    <h2>CORE RESOURCES</h2>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Home</u> [GET]</h3>
+      <p>
+        <b>Description:</b> Displays general information about this project
+        and API documentation. <br>
+
+        <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com">"https://class-manager-fard.herokuapp.com"</a><br>
+
+        <b>Accessibility:</b> Public
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subjects</u> [GET]</h3>
+      <p>
+        <b>Description:</b> List all registered classes (or subjects) with
+          the following information:
+
+          <ul>
+            <li>Category</li>
+            <li>id</li>
+            <li>start time</li>
+            <li>Enrolled Students</li>
+            <li>Zoom Link</li>
+          </ul>
+
+        <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com/subjects">/subjects</a><br>
+
+        <b>Accessibility:</b> Public
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subjects</u> [POST]</h3>
+      <p>
+        <b>Description:</b> Registers a new class <br>
+
+        <b>Route:</b> /subjects<br>
+
+        <b>Accessibility:</b> Requires 'post:subject' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+
+              { <br>
+               'category':'Some Category', <br>
+               'start': [yyyy, mm, dd, hh, mm], <br>
+               'zoom_link': "https://zoom.us/s/110000..." <br>
+               } <br><br>
+
+               where dd = [1-31] <br>
+                     mm = [1-12] <br>
+                     hh = [00-23] <br>
+                     mm = [00-59] <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subjects</u> [POST]</h3>
+      <p>
+        <b>Description:</b> Registers a new class <br>
+
+        <b>Route:</b> /subjects<br>
+
+        <b>Accessibility:</b> Requires 'post:subject' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+
+              { <br>
+               'category':'Some Category', <br>
+               'start': [yyyy, mm, dd, hh, mm], <br>
+               'zoom_link': "https://zoom.us/s/110000..." <br>
+               } <br><br>
+
+               where dd = [1-31] <br>
+                     mm = [1-12] <br>
+                     hh = [00-23] <br>
+                     mm = [00-59] <br><br>
+
+        <b>Response Example:</b> <br>
+
+              {<br>
+                "new_subject": { <br>
+                    "category": "Art - Painting", <br>
+                    "id": 35, <br>
+                    "start": "Fri, 31 Dec 2021 07:30:00 GMT", <br>
+                    "students": [], <br>
+                    "zoom_link": "https://zoom.us/s/1100000?iI..." <br>
+                }, <br>
+                "success": true <br>
+              } <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subjects</u> [PATCH]</h3>
+      <p>
+        <b>Description:</b> Edit an existing class (subject) <br>
+
+        <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
+
+        <b>Accessibility:</b> Requires 'patch:subjects' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+              Subject_id in url argument <br><br>
+
+
+              { <br>
+               'category':'Some Category',  <i>optional</i><br>
+               'start': [yyyy, mm, dd, hh, mm], <i>optional</i><br>
+               'zoom_link': "https://zoom.us/s/110000..." <i>optional</i><br>
+               } <br><br>
+
+               where dd = [1-31] <br>
+                     mm = [1-12] <br>
+                     hh = [00-23] <br>
+                     mm = [00-59] <br><br>
+
+        <b>Response Example:</b> <br>
+
+        { <br>
+          "success": true, <br>
+          "updated_info": { <br>
+            "category": "edited2", <br>
+            "id": 35, <br>
+            "start": "Sun, 01 Jan 2023 03:00:00 GMT", <br>
+            "students": [], <br>
+            "zoom_link": "https://zoom.us/s/1100000?iIifQ.w" <br>
+          } <br>
+        } <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subjects</u> [DELETE]</h3>
+      <p>
+        <b>Description:</b> Eliminates a class (subject) from the database <br>
+
+        <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
+
+        <b>Accessibility:</b> Requires 'delete:subjects' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+              Subject_id in url argument <br><br>
+
+        <b>Response Example:</b> <br>
+
+        { <br>
+          "success": true, <br>
+        } <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Students</u> [POST]</h3>
+      <p>
+        <b>Description:</b> Creates a new student (user) <br>
+
+        <b>Route:</b> /students<br>
+
+        <b>Accessibility:</b> Public <br>
+
+        <b>Required Data Structure:</b> <br>
+            { <br>
+             "name": "Tim", <br>
+             "last_name": "Cook" <br>
+            } <br><br>
+
+
+        <b>Response Example:</b> <br>
+
+        { <br>
+          "new_student": { <br>
+              "id": 29, <br>
+              "last_name": "Cook", <br>
+              "name": "Tim" <br>
+          }, <br>
+          "success": true <br>
+        } <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Students/&lt;int student_id&gt;</u> [POST]</h3>
+      <p>
+        <b>Description:</b> Enrolls student into a class <br>
+
+        <b>Route:</b> /students/&lt;int student_id&gt;<br>
+
+        <b>Accessibility:</b> Requires 'post:student-subject' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+            student_id in url argument <br><br>
+
+            { <br>
+             "subject_id": "35", <i>required</i><br>
+            } <br><br>
+
+
+        <b>Response Example:</b> <br>
+
+        { <br>
+          "students": [ <br>
+              { <br>
+                  "id": 3, <br>
+                  "last_name": "student3", <br>
+                  "name": "student3" <br>
+              } <br>
+          ], <br>
+          "subject_id": 35, <br>
+          "success": true <br>
+        } <br>
+      </p>
+    </div>
+
+    <div class=div-submain-API id="subjects-div">
+      <h3><u>Subject/&lt;int subject_id&gt;/students</u> [GET]</h3>
+      <p>
+        <b>Description:</b> Query all students enrolled in an specific class <br>
+
+        <b>Route:</b> Subject/&lt;int subject_id&gt;/students<br>
+
+        <b>Accessibility:</b> Requires 'get:students' permission <br>
+
+        <b>Required Data Structure:</b> <br>
+            subject_id in url argument <br><br>
+
+        <b>Response Example:</b> <br>
+
+            { <br>
+              "category": "Art -  Painting", <br>
+              "students": [ <br>
+                  { <br>
+                      "id": 3, <br>
+                      "last_name": "Tim", <br>
+                      "name": "Cook" <br>
+                  } <br>
+              ], <br>
+              "subject_id": 35, <br>
+              "success": true <br>
+            } <br>
+      </p>
+    </div>
+
+  </div>
+
+{% endblock %}

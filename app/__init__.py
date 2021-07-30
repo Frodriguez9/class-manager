@@ -30,6 +30,8 @@ from .functions import (
 from .auth.auth import AuthError, requires_auth
 import http.client
 
+from general.general import general_bp
+
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -40,27 +42,8 @@ def create_app(test_config=None):
     # ---------------------------------------------------------
     # Public routes
     # ---------------------------------------------------------
-    @app.route('/')
-    def index():
-        return '''<p> Welcome to my Capston Project! </p>
 
-                This is a work in progress. Eventually, it will be powered by
-                Zoom, and you will be able to manage your online
-                classes. For now, you can have a taste of how the
-                endpoints are working.
-
-                To use some enpoints, you will need especial permissions so
-                we have created 2 users that you can use to access those
-                endpoints.
-
-                Login endpoint:
-
-                https://class-manager-fard.herokuapp.com/login
-
-
-
-                Here is a summary
-        '''
+    app.register_blueprint(general_bp)
 
     @app.route('/subjects')
     def query_courses():
