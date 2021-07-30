@@ -7,107 +7,105 @@
     {% endblock %}
   </head>
   <body>
-     <h1 class="index-title">Welcome to my Capstone Project! 🥳</h1>
-
-      <div class="div-main">
-        <div class="div-personal-info">
-          <p>
-            <b>Fernando Rodriguez</b> | Backend Developer <br>
-            <a href="https://github.com/Frodriguez9/class-manager/tree/master">Source Code</a>
-              &ensp;
-            <a href="https://www.linkedin.com/in/fernandorodriguezdagostino/">LinkedIn</a>
-              &ensp;
-           <i>fard9@outlook.com</i>
-          </p>
-        </div>
-
-        <div class="div-submain" id="projec-description-div">
-          <p>
-            This is a backend API that will slowly undergo a metamorphosis until
-            it becomes a fully functional
-            <a href="https://en.wikipedia.org/wiki/Single-page_application">SPA</a>.
-            using the <b>Vue.js</b> framework.
-            <br><br>
-
-            The goal is to allows curious minds and talented people - who are
-            willing to teach their skills using a webcam, to come together.
-            The core idea is that instructors create classes and students enroll
-            in them, allowing instructors to manage their online classes from
-            here. That is: student registration, payments, and
-            meeting-link-sharing automation.
-            <br><br>
-
-            <b>Short term TODOS:</b>
-            <ul>
-              <li>Integrate Zoom and other 3er parties APIs</li>
-              <li>Add CSS styling to home page</li>
-            </ul>
-            <br>
-
-            Until then, have a taste of how this <b>Class-Manager RESTful API</b>
-            is working.
-
-            <br><br>
-
-            We will provide instructions for you to setup a
-            <a href="https://www.postman.com/"><i>Postman Account</i></a>, which
-            will make it easier to test all endpoints.
-           </p>
-
-           <h2>Before Starting 🤚</h2>
-           <p>
-             Some endpoints require especial permissions. We have created 2
-             users with those permissions so that you can access and test
-             those endpoints.
-             <br><br>
-
-             How to login and use our <b><i>Class-Manager API</i></b> is
-             described below in the <b>API section</b>. For now, know that you
-             need to log in with these users to access certain endpoints.
-             <br><br>
-           </p>
-
-           <h3>Pre-registered Users</h3>
-           <div class="div-submain-permission-list">
-             <ul>
-               <li><b>Email address: </b>admin@capstone.com <b>Password: </b>CapstoneAdmin1!</li> <br>
-               <i>Permissions:</i>
-
-               <ul>
-                 <li>delete:subjects <i>remove course</i></li>
-                 <li>get:students <i>read students enrolled in a particular class</i></li>
-                 <li>patch:subjects <i>modify existing course</i></li>
-                 <li>patch:subjects <i>enroll student in a course</i></li>
-                 <li>post:subjects <i>create new course</i></li>
-               </ul> <br>
-
-               <li><b>Email address: </b>assistant@capstone.com <b>Password: </b>CapstoneAssistant1!</li> <br>
-               <i>Permissions:</i>
-
-               <ul>
-                 <li>get:students <i>read students enrolled in a particular class</i></li>
-               </ul>
-            </ul>
-           </div>
-           <h3>Setup a Postman Account</h3>
-           <p>
-             curl requests are a little bit of a pain in the butt. An
-             extra-space, using the wrong set of quotations ("",''), or even
-             a copy/paste template that happens to not be plain text in the
-             background, and your request will fail. So, to avoid an undesirable
-             experience, take a few minutes to set up a
-             <a href="https://www.postman.com/"><i>Postman Account</i></a>.
-             <br><br>
-
-             Once your account is set up, continue reading. We will let you know
-             how to use Postman to unleash the power of the Class-Manager API 💪
-
-            <h1>POSTMAN INSTRUCTIONS</h1>
-           </p>
-        </div>
-        {% block content %}
-        {% endblock %}
-
+    <div class="div-main">
+      <div class="div-personal-info">
+        <p>
+          <b>Fernando Rodriguez</b> | Backend Developer <br>
+          <a href="https://github.com/Frodriguez9/class-manager/tree/master">Source Code</a>
+            &ensp;
+          <a href="https://www.linkedin.com/in/fernandorodriguezdagostino/">LinkedIn</a>
+            &ensp;
+          <i>fard9@outlook.com</i>
+        </p>
       </div>
+
+      <h1 class="index-title">Welcome to my Capstone Project! 🥳</h1>
+      <div class="div-submain" id="projec-description-div">
+        <p>
+          This is a backend API that will slowly undergo a metamorphosis until
+          it becomes a fully functional
+          <a href="https://en.wikipedia.org/wiki/Single-page_application">SPA</a>.
+          using the <b>Vue.js</b> framework.
+          <br><br>
+
+          The goal is to allows curious minds and talented people - who are
+          willing to teach their skills using a webcam, to come together.
+          The core idea is that instructors create classes and students enroll
+          in them, allowing instructors to manage their online classes from
+          here. That is: student registration, payments, and
+          meeting-link-sharing automation.
+          <br><br>
+
+          <b>Short term TODOS:</b>
+          <ul>
+            <li>Integrate Zoom and other 3er parties APIs</li>
+            <li>Add CSS styling to home page</li>
+          </ul>
+          <br>
+
+          Until then, have a taste of how this <b>Class-Manager RESTful API</b>
+          is working.
+
+          <br><br>
+
+          We will provide instructions for you to setup a
+          <a href="https://www.postman.com/"><i>Postman Account</i></a>, which
+          will make it easier to test all endpoints.
+         </p>
+
+         <h2>Before Starting 🤚</h2>
+         <p>
+           Some endpoints require especial permissions. We have created 2
+           users with those permissions so that you can access and test
+           those endpoints.
+           <br><br>
+
+           How to login and use our <b><i>Class-Manager API</i></b> is
+           described below in the <b>API section</b>. For now, know that you
+           need to log in with these users to access certain endpoints.
+           <br><br>
+         </p>
+
+         <h3>Pre-registered Users</h3>
+         <div class="div-submain-permission-list">
+           <ul>
+             <li><b>Email address: </b>admin@capstone.com <b>Password: </b>CapstoneAdmin1!</li> <br>
+             <i>Permissions:</i>
+
+             <ul>
+               <li>delete:subjects <i>remove course</i></li>
+               <li>get:students <i>read students enrolled in a particular class</i></li>
+               <li>patch:subjects <i>modify existing course</i></li>
+               <li>patch:subjects <i>enroll student in a course</i></li>
+               <li>post:subjects <i>create new course</i></li>
+             </ul> <br>
+
+             <li><b>Email address: </b>assistant@capstone.com <b>Password: </b>CapstoneAssistant1!</li> <br>
+             <i>Permissions:</i>
+
+             <ul>
+               <li>get:students <i>read students enrolled in a particular class</i></li>
+             </ul>
+          </ul>
+         </div>
+         <h3>Setup a Postman Account</h3>
+         <p>
+           curl requests are a little bit of a pain in the butt. An
+           extra-space, using the wrong set of quotations ("",''), or even
+           a copy/paste template that happens to not be plain text in the
+           background, and your request will fail. So, to avoid an undesirable
+           experience, take a few minutes to set up a
+           <a href="https://www.postman.com/"><i>Postman Account</i></a>.
+           <br><br>
+
+           Once your account is set up, continue reading. We will let you know
+           how to use Postman to unleash the power of the Class-Manager API 💪
+
+          <h1>POSTMAN INSTRUCTIONS</h1>
+         </p>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
   </body>
 </html>
