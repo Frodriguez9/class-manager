@@ -3,110 +3,210 @@
   <head>
     {% block head %}
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="with=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
   <body>
-    <div class="div-main">
-      <div class="div-personal-info">
-        <p>
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Thanks for visiting!</h4>
+      <p>
+        We are always learning. As you read, we are developing Bootstrap skills
+        as well as other framework skills to make this homepage nicer. So be aware
+        that if you comeback tomorrow, or even in a couple of hours, you may
+        find more features and/or a different look.
+      </p>
+      <hr>
+      <p class="mb-0">Enjoy your visit!</p>
+    </div>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col">
           <b>Fernando Rodriguez</b> | Backend Developer <br>
-          <a href="https://github.com/Frodriguez9/class-manager/tree/master">Source Code</a>
-            &ensp;
-          <a href="https://www.linkedin.com/in/fernandorodriguezdagostino/">LinkedIn</a>
-            &ensp;
-          <i>fard9@outlook.com</i>
-        </p>
+        </div>
       </div>
 
-      <h1 class="index-title">Welcome to my Capstone Project! 🥳</h1>
-      <div class="div-submain" id="projec-description-div">
-        <p>
-          This is a backend API that will slowly undergo a metamorphosis until
-          it becomes a fully functional
-          <a href="https://en.wikipedia.org/wiki/Single-page_application">SPA</a>
-          using the <b>Vue.js</b> framework.
-          <br><br>
+      <div class="row">
+        <div class="col">
+          <a href="https://github.com/Frodriguez9/class-manager/tree/master">Source Code</a>
+          -
+          <a href="https://www.linkedin.com/in/fernandorodriguezdagostino/">LinkedIn</a>
+          -
+          <i>fard9@outlook.com</i>
+        </div>
+      </div>
 
-          The goal is to allows curious minds and talented people - who are
-          willing to teach their skills using a webcam, to come together.
-          The core idea is that instructors create classes and students enroll
-          in them, allowing instructors to manage their online classes from
-          here. That is: student registration, payments, and
-          meeting-link-sharing automation.
-          <br><br>
+    </div>
 
-          <b>Short term TODOS:</b>
+    <br>
+
+    <div class="container-fluid">
+      <h2 class="index-title">Welcome to my Capstone Project! 🥳</h1>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-6">
+            <p>
+              <b>Introduction:</b>
+            </p>
+
+            <p>
+              This is a backend API that will slowly undergo a metamorphosis until
+              it becomes a fully functional
+              <a href="https://en.wikipedia.org/wiki/Single-page_application">SPA</a>
+              using the <b>Vue.js</b> framework.
+            </p>
+            <p>
+              The goal is to allows curious minds and talented people - who are
+              willing to teach their skills using a webcam, to come together.
+              The core idea is that instructors create classes and students enroll
+              in them, allowing instructors to manage their online classes from
+              here. That is: student registration, payments, and
+              meeting-link-sharing automation.
+            </p>
+            <p>
+              Until then, have a taste of how this <b>Class-Manager RESTful API</b>
+              is working.
+            </p>
+        </div>
+
+        <div class="col-sm-5">
+          <p>
+            <b>Short term TODOS:</b>
+          </p>
           <ul>
             <li>Integrate Zoom and other 3er parties APIs</li>
             <li>Add CSS styling to home page</li>
+            <li>Add index on left margin</li>
           </ul>
-          <br>
-
-          Until then, have a taste of how this <b>Class-Manager RESTful API</b>
-          is working.
-
-          <br><br>
-
-          We will provide instructions for you to setup a
-          <a href="https://www.postman.com/"><i>Postman Account</i></a>, which
-          will make it easier to test all endpoints.
-         </p>
-
-         <h2>Before Starting 🤚</h2>
-         <p>
-           Some endpoints require especial permissions. We have created 2
-           users with those permissions so that you can access and test
-           those endpoints.
-           <br><br>
-
-           How to login and use our <b><i>Class-Manager API</i></b> is
-           described below in the <b>API section</b>. For now, know that you
-           need to log in with these users to access certain endpoints.
-           <br><br>
-         </p>
-
-         <h3>Pre-registered Users</h3>
-         <div class="div-submain-permission-list">
-           <ul>
-             <li><b>Email address: </b>admin@capstone.com <b>Password: </b>CapstoneAdmin1!</li> <br>
-             <i>Permissions:</i>
-
-             <ul>
-               <li>delete:subjects <i>remove course</i></li>
-               <li>get:students <i>read students enrolled in a particular class</i></li>
-               <li>patch:subjects <i>modify existing course</i></li>
-               <li>patch:subjects <i>enroll student in a course</i></li>
-               <li>post:subjects <i>create new course</i></li>
-             </ul> <br>
-
-             <li><b>Email address: </b>assistant@capstone.com <b>Password: </b>CapstoneAssistant1!</li> <br>
-             <i>Permissions:</i>
-
-             <ul>
-               <li>get:students <i>read students enrolled in a particular class</i></li>
-             </ul>
-          </ul>
-         </div>
-         <h3>Setup a Postman Account</h3>
-         <p>
-           curl requests are a little bit of a pain in the butt. An
-           extra-space, using the wrong set of quotations ("",''), or even
-           a copy/paste template that happens to not be plain text in the
-           background, and your request will fail. So, to avoid an undesirable
-           experience, take a few minutes to set up a
-           <a href="https://www.postman.com/"><i>Postman Account</i></a>.
-           <br><br>
-
-           Once your account is set up, continue reading. We will let you know
-           how to use Postman to unleash the power of the Class-Manager API 💪
-           <br><br>
-
-          <b>TODO: provide instructions to use Postman</b>
-         </p>
+        </div>
       </div>
+
+    </div>
+
+    <div class="container-fluid">
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-7">
+          <p>
+            <h3>Before Staring 🤚</h3>
+          </p>
+
+          <p>
+            Some endpoints require especial permissions. We have created 2
+            users with those permissions so that you can access and test
+            those endpoints.
+          </p>
+
+          <p>
+            How to login and use our <b><i>Class-Manager API</i></b> is
+            described below in the <b>API section</b>. For now, know that you
+            need to login with these users to access certain endpoints.
+          </p>
+
+          <p>
+            Also, we strongly encourage you to use
+            <a href="https://www.postman.com/"><i>Postman</i></a> to test
+            our API.
+          </p>
+
+          <p>
+            Postman is a collaboration platform for API development.
+          </p>
+
+          <p>
+            Once your are setup with Postman, continue reading and use Postman
+            to unleash the power of the Class-Manager API 💪
+          </p>
+        </div>
+
+        <div class="col-sm-5">
+          <p>
+            <br>
+            <b>Why should I create an account with Postman to test
+               this API?</b>
+          </p>
+
+          <p>
+            You don't have to. But it would make your life easier.
+          </p>
+
+          <p>
+            curl requests are a little bit of a pain in the butt. An
+            extra-space, using the wrong set of quotations ("",''), or even
+            a copy/paste template that happens to not be plain text in the
+            background, and your request will fail. To avoid an undesirable
+            experience, take a few minutes to set up a
+            <a href="https://www.postman.com/"><i>Postman Account</i></a> and
+            follow their quickstart guidance.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="container-fluid">
+
+      <hr>
+
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <h3>Pre-registered Users </h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <ul>
+            <p class="text-black bg-light rounded">Permissions:</p>
+            <li>get:students <i>read students enrolled in a particular class</i></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-5">
+          <div class="row bg-light rounded">
+            <p><b>Email address: </b>assistant@capstone.com</p>
+            <p><b>Password: </b>CapstoneAssistant1!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row"> <br></div> <!-- create -->
+
+      <div class="row">
+        <div class="col-sm-6">
+          <ul>
+            <p class="text-black bg-light rounded">Permissions:</p>
+            <li>delete:subjects <i>remove course</i></li>
+            <li>get:students <i>read students enrolled in a particular class</i></li>
+            <li>patch:subjects <i>modify existing course</i></li>
+            <li>patch:subjects <i>enroll student in a course</i></li>
+            <li>post:subjects <i>create new course</i></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-5">
+          <div class="row bg-light rounded">
+            <p><b>Email address: </b>admin@capstone.com</p>
+            <p><b>Password: </b>CapstoneAdmin1!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
       {% block content %}
       {% endblock %}
-    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

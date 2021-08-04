@@ -3,43 +3,86 @@
 {% block head %} {{ super() }} {% endblock %} <!-- {{ super() }}renders the contents of a block defined in the parent template -->
 {% block content %}
 
-  <div class="div-submain" id="API-div">
-    <h2>API Reference 😎</h2>
-    <p>
-      The Class-Manager API is organized around REST. Our API returns
-      <a href="https://www.json.org/json-en.html">JSON-encoded</a>
-      responses, and uses standard HTTP response codes, verbs, and
-      authentication.
-      <br><br>
+  <div class="container-fluid">
 
-      <b>Base URL</b> <br>
-      <ul>
-        https://class-manager-fard.herokuapp.com
-      </ul>
-    </p>
-    <div class=div-submain-API id="Authentication-div">
-      <h3>AUTHENTICATION</h3>
-      <p>
-        Class-Manager uses
-        <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JWTs</a>
-        to authenticate your API requests for endpoints that require
-        permissions. When you sing-up/login, you will be assigned an
-        expirable token found in the URL arguments after login.
-        <br><br>
+    <hr>
+    <div class="row">
+        <h2>API Reference 😎</h2>
+    </div>
 
-        From the URL, copy this token from 'access_token' up until the '&' symbol
-        before expires_in.
-        <br><br>
-
-        Example of URL after login:
-        <br><br>
-        &ensp; https://class-manager-fard.herokuapp.com/subjects#<b>access_token</b>=eyJhbGciOiJSUzI1NiI<...>&expires_in=7200&token_type=Bearer
-        <br><br>
-
-        You will copy: <i>"eyJhbGciOiJSUzI1NiI<...>"</i> and use this token
-        to set up your Bearer Header in Postman to perform your requests.
-        <br><br>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          The Class-Manager API is organized around REST. Our API returns
+          <a href="https://www.json.org/json-en.html">JSON-encoded</a>
+          responses, and uses standard HTTP response codes, verbs, and
+          authentication.
         </p>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="row bg-light rounded">
+            <p class="text-secondary bg-dark rounded"> Base URL</p>
+            <p class="text-secondary">https://class-manager-fard.herokuapp.com</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid">
+
+    <hr>
+        <h3>AUTHENTICATION</h3>
+
+    <div class="row">
+      <div class="col-sm-7">
+        <p>
+          Class-Manager uses
+          <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JWTs</a>
+          to authenticate your API requests for endpoints that require
+          permissions. When you sing-up/login, you will be assigned an
+          expirable token found in the URL arguments after login.
+        </p>
+
+        <p>
+          From the URL, copy this token from 'access_token' up until the '&' symbol
+          before expires_in.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 bg-light rounded">
+        <p class="text-secondary">Example of URL after login:</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <p class="text-secondary">
+          https://class-manager-fard.herokuapp.com/subjects#<b>access_token</b>=eyJhbGciOiJSUzI1NiI<...>&expires_in=7200&token_type=Bearer
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-7">
+        <p>
+          You will copy: <i>"eyJhbGciOiJSUzI1NiI<...>"</i> and use this token
+          to set up your Bearer Header in Postman to perform your requests.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  </p>
+
+    <div class=div-submain-API id="Authentication-div">
+
         <h4>Testing Class-Manager API</h4>
         <p>
           For testing purposes, we suggest logging in with the Admin user
