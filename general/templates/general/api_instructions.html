@@ -21,9 +21,9 @@
       </div>
 
       <div class="col-sm-5">
-        <div class="row bg-light rounded">
-            <p class="text-secondary bg-dark rounded"> Base URL</p>
-            <p class="text-secondary">https://class-manager-fard.herokuapp.com</p>
+        <div class="row bg-secondary rounded">
+            <p class="text-light bg-dark rounded"> Base URL</p>
+            <p class="text-light">https://class-manager-fard.herokuapp.com</p>
         </div>
       </div>
     </div>
@@ -58,297 +58,373 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-auto">
+    <div class="row">
         <p class="text-secondary">
           https://class-manager-fard.herokuapp.com/subjects#<b>access_token</b>=eyJhbGciOiJSUzI1NiI<...>&expires_in=7200&token_type=Bearer
         </p>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 bg-light rounded">
+        <p>You will copy:</p>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-sm-7">
-        <p>
-          You will copy: <i>"eyJhbGciOiJSUzI1NiI<...>"</i> and use this token
-          to set up your Bearer Header in Postman to perform your requests.
+        <p class="text-secondary">
+          <i>"eyJhbGciOiJSUzI1NiI<...>"</i>
         </p>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 bg-light rounded">
+        <p>and use this token
+        to set up your Bearer Header in Postman to perform your requests.</p>
       </div>
     </div>
 
   </div>
 
+  <div class="container-fluid">
 
+    <hr>
 
-  </p>
-
-    <div class=div-submain-API id="Authentication-div">
-
+    <div class="row bg-light rounded">
+      <div class="col-sm-5">
         <h4>Testing Class-Manager API</h4>
+      </div>
+      <div class="col-sm-4">
         <p>
           For testing purposes, we suggest logging in with the Admin user
           provided in the <i>Pre-register Users</i> section above, which
           has access to all of the endpoints.
         </p>
+      </div>
     </div>
 
-    <div class=div-submain-API id="errors-div">
-      <h3>ERRORS</h3>
-      <p>
-        Class-Manager uses conventional HTTP response code to indicate success
-        or failure of an API request. In general, code <b>2xx</b> indicate
-        success. Code <b>4xx</b> indicate failure. Codes <b>5xx</b> indicate
-        an error on our server.
-      </p>
-      <h2>Summary of Errors</h2>
-      <ul>
-        <li><b>400 - Bad Request</b></li>
-        <li><b>404 - Resource Not Found</b></li>
-        <li><b>422 - Unprocessable</b></li>
-        <li><b>401 - Invalid Header</b></li>
-        <li><b>403 - Unauthorized</b></li>
-        <li><b>500 - Server Failure</b></li>
-      </ul>
+    <br>
 
-      <p>
-        <b>Error Example:</b> <br><br>
-        { <br>
-          'success': false <br>
-           'error': 400, <br>
-           'code': 'invalid_header' <br>
-          'message': 'Unable to parse authentication token.' <br>
-        } <br>
-    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h4>Errors</h4>
+        <p>
+          Class-Manager uses conventional HTTP response code to indicate success
+          or failure of an API request. In general, code <b>2xx</b> indicate
+          success. Code <b>4xx</b> indicate failure. Codes <b>5xx</b> indicate
+          an error on our server.
+        </p>
+      </div>
 
-    <h2>CORE RESOURCES</h2>
+      <div class="col-sm-4">
+        <h4>Summary of Errors</h4>
+        <ul>
+          <li><b>400 - Bad Request</b></li>
+          <li><b>404 - Resource Not Found</b></li>
+          <li><b>422 - Unprocessable</b></li>
+          <li><b>401 - Invalid Header</b></li>
+          <li><b>403 - Unauthorized</b></li>
+          <li><b>500 - Server Failure</b></li>
+        </ul>
+      </div>
 
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Home</u> [GET]</h3>
-      <p>
-        <b>Description:</b> Displays general information about this project
-        and API documentation. <br>
-
-        <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com">"https://class-manager-fard.herokuapp.com"</a><br>
-
-        <b>Accessibility:</b> Public
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subjects</u> [GET]</h3>
-      <p>
-        <b>Description:</b> List all registered classes (or subjects) with
-          the following information:
-
-          <ul>
-            <li>Category</li>
-            <li>id</li>
-            <li>start time</li>
-            <li>Enrolled Students</li>
-            <li>Zoom Link</li>
-          </ul>
-
-        <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com/subjects">/subjects</a><br>
-
-        <b>Accessibility:</b> Public
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subjects</u> [POST]</h3>
-      <p>
-        <b>Description:</b> Registers a new class <br>
-
-        <b>Route:</b> /subjects<br>
-
-        <b>Accessibility:</b> Requires 'post:subject' permission <br>
-
-        <b>Required Data Structure:</b> <br>
-
-              { <br>
-               'category':'Some Category', <br>
-               'start': [yyyy, mm, dd, hh, mm], <br>
-               'zoom_link': "https://zoom.us/s/110000..." <br>
-               } <br><br>
-
-               where dd = [1-31] <br>
-                     mm = [1-12] <br>
-                     hh = [00-23] <br>
-                     mm = [00-59] <br>
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subjects</u> [POST]</h3>
-      <p>
-        <b>Description:</b> Registers a new class <br>
-
-        <b>Route:</b> /subjects<br>
-
-        <b>Accessibility:</b> Requires 'post:subject' permission <br>
-
-        <b>Required Data Structure:</b> <br>
-
-              { <br>
-               'category':'Some Category', <br>
-               'start': [yyyy, mm, dd, hh, mm], <br>
-               'zoom_link': "https://zoom.us/s/110000..." <br>
-               } <br><br>
-
-               where dd = [1-31] <br>
-                     mm = [1-12] <br>
-                     hh = [00-23] <br>
-                     mm = [00-59] <br><br>
-
-        <b>Response Example:</b> <br>
-
-              {<br>
-                "new_subject": { <br>
-                    "category": "Art - Painting", <br>
-                    "id": 35, <br>
-                    "start": "Fri, 31 Dec 2021 07:30:00 GMT", <br>
-                    "students": [], <br>
-                    "zoom_link": "https://zoom.us/s/1100000?iI..." <br>
-                }, <br>
-                "success": true <br>
-              } <br>
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subjects</u> [PATCH]</h3>
-      <p>
-        <b>Description:</b> Edit an existing class (subject) <br>
-
-        <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
-
-        <b>Accessibility:</b> Requires 'patch:subjects' permission <br>
-
-        <b>Required Data Structure:</b> <br>
-              Subject_id in url argument <br><br>
-
-
-              { <br>
-               'category':'Some Category',  <i>optional</i><br>
-               'start': [yyyy, mm, dd, hh, mm], <i>optional</i><br>
-               'zoom_link': "https://zoom.us/s/110000..." <i>optional</i><br>
-               } <br><br>
-
-               where dd = [1-31] <br>
-                     mm = [1-12] <br>
-                     hh = [00-23] <br>
-                     mm = [00-59] <br><br>
-
-        <b>Response Example:</b> <br>
-
-        { <br>
-          "success": true, <br>
-          "updated_info": { <br>
-            "category": "edited2", <br>
-            "id": 35, <br>
-            "start": "Sun, 01 Jan 2023 03:00:00 GMT", <br>
-            "students": [], <br>
-            "zoom_link": "https://zoom.us/s/1100000?iIifQ.w" <br>
-          } <br>
-        } <br>
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subjects</u> [DELETE]</h3>
-      <p>
-        <b>Description:</b> Eliminates a class (subject) from the database <br>
-
-        <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
-
-        <b>Accessibility:</b> Requires 'delete:subjects' permission <br>
-
-        <b>Required Data Structure:</b> <br>
-              Subject_id in url argument <br><br>
-
-        <b>Response Example:</b> <br>
-
-        { <br>
-          "success": true, <br>
-        } <br>
-      </p>
-    </div>
-
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Students</u> [POST]</h3>
-      <p>
-        <b>Description:</b> Creates a new student (user) <br>
-
-        <b>Route:</b> /students<br>
-
-        <b>Accessibility:</b> Public <br>
-
-        <b>Required Data Structure:</b> <br>
+      <div class="col-sm-3">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Error Example:</b></p>
+          <p class="text-light">
             { <br>
-             "name": "Tim", <br>
-             "last_name": "Cook" <br>
-            } <br><br>
-
-
-        <b>Response Example:</b> <br>
-
-        { <br>
-          "new_student": { <br>
-              "id": 29, <br>
-              "last_name": "Cook", <br>
-              "name": "Tim" <br>
-          }, <br>
-          "success": true <br>
-        } <br>
-      </p>
+              'success': false <br>
+               'error': 400, <br>
+               'code': 'invalid_header' <br>
+              'message': 'Unable to parse authentication token.' <br>
+            } <br>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Students/&lt;int student_id&gt;</u> [POST]</h3>
-      <p>
-        <b>Description:</b> Enrolls student into a class <br>
+  </div>
 
-        <b>Route:</b> /students/&lt;int student_id&gt;<br>
+  <div class="container-fluid"> <!-- from this point on, all rows belong to the same container -->
 
-        <b>Accessibility:</b> Requires 'post:student-subject' permission <br>
+    <hr>
+    <h2>Core Resources</h2>
 
-        <b>Required Data Structure:</b> <br>
-            student_id in url argument <br><br>
+    <br> <!-- TODO: change for css padding/margin -->
 
+    <div class="row">
+      <div class="col-sm-3">
+        <h4><u>Home</u> [GET]</h4>
+      </div>
+
+      <div class="col-sm-4">
+        <p>
+          <b>Description:</b> Displays general information about this project
+          and API documentation. <br>
+
+          <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com">"https://class-manager-fard.herokuapp.com"</a><br>
+
+          <b>Accessibility:</b> Public
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <h4><u>Subjects</u> [GET]</h4>
+      </div>
+
+      <div class="col-sm-4">
+        <p>
+          <b>Description:</b> List all registered classes (or subjects) with
+            the following information:
+
+            <ul>
+              <li>Category</li>
+              <li>id</li>
+              <li>start time</li>
+              <li>Enrolled Students</li>
+              <li>Zoom Link</li>
+            </ul>
+
+          <b>Route:</b> <a href="https://class-manager-fard.herokuapp.com/subjects">/subjects</a><br>
+
+          <b>Accessibility:</b> Public
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Subjects</u> [POST]</h4>
+      </div>
+
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Registers a new class <br>
+
+          <b>Route:</b> /subjects<br>
+
+          <b>Accessibility:</b> Requires 'post:subject' permission <br>
+
+          <b>Required Data Structure:</b> <br>
+
+                { <br>
+                 'category':'Some Category', <br>
+                 'start': [yyyy, mm, dd, hh, mm], <br>
+                 'zoom_link': "https://zoom.us/s/110000..." <br>
+                 } <br><br>
+
+                 where dd = [1-31] <br>
+                       mm = [1-12] <br>
+                       hh = [00-23] <br>
+                       mm = [00-59]
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
+            {<br>
+              "new_subject": { <br>
+                  "category": "Art - Painting", <br>
+                  "id": 35, <br>
+                  "start": "Fri, 31 Dec 2021 07:30:00 GMT", <br>
+                  "students": [], <br>
+                  "zoom_link": "https://zoom.us/s/1100000?iI..." <br>
+              }, <br>
+              "success": true <br>
+            } <br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Subjects</u> [PATCH]</h4>
+      </div>
+
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Edit an existing class (subject) <br>
+
+          <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
+
+          <b>Accessibility:</b> Requires 'patch:subjects' permission <br>
+
+          <b>Required Data Structure:</b> <br>
+                Subject_id in url argument <br><br>
+
+
+                { <br>
+                 'category':'Some Category',  <i>optional</i><br>
+                 'start': [yyyy, mm, dd, hh, mm], <i>optional</i><br>
+                 'zoom_link': "https://zoom.us/s/110000..." <i>optional</i><br>
+                 } <br><br>
+
+                 where dd = [1-31] <br>
+                       mm = [1-12] <br>
+                       hh = [00-23] <br>
+                       mm = [00-59]
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
             { <br>
-             "subject_id": "35", <i>required</i><br>
-            } <br><br>
-
-
-        <b>Response Example:</b> <br>
-
-        { <br>
-          "students": [ <br>
-              { <br>
-                  "id": 3, <br>
-                  "last_name": "student3", <br>
-                  "name": "student3" <br>
+              "success": true, <br>
+              "updated_info": { <br>
+                "category": "edited2", <br>
+                "id": 35, <br>
+                "start": "Sun, 01 Jan 2023 03:00:00 GMT", <br>
+                "students": [], <br>
+                "zoom_link": "https://zoom.us/s/1100000?iIifQ.w" <br>
               } <br>
-          ], <br>
-          "subject_id": 35, <br>
-          "success": true <br>
-        } <br>
-      </p>
+            }
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class=div-submain-API id="subjects-div">
-      <h3><u>Subject/&lt;int subject_id&gt;/students</u> [GET]</h3>
-      <p>
-        <b>Description:</b> Query all students enrolled in an specific class <br>
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Subjects</u> [DELETE]</h4>
+      </div>
 
-        <b>Route:</b> Subject/&lt;int subject_id&gt;/students<br>
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Eliminates a class (subject) from the database <br>
 
-        <b>Accessibility:</b> Requires 'get:students' permission <br>
+          <b>Route:</b> /subjects/&lt;int subject_id&gt;<br>
 
-        <b>Required Data Structure:</b> <br>
-            subject_id in url argument <br><br>
+          <b>Accessibility:</b> Requires 'delete:subjects' permission <br>
 
-        <b>Response Example:</b> <br>
+          <b>Required Data Structure:</b> <br>
+                Subject_id in url argument
+        </p>
+      </div>
 
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
+            { <br>
+              "success": true <br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Students</u> [POST]</h4>
+      </div>
+
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Creates a new student (user) <br>
+
+          <b>Route:</b> /students<br>
+
+          <b>Accessibility:</b> Public <br>
+
+          <b>Required Data Structure:</b> <br>
+              { <br>
+               "name": "Tim", <br>
+               "last_name": "Cook" <br>
+              }
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
+            { <br>
+              "new_student": { <br>
+                  "id": 29, <br>
+                  "last_name": "Cook", <br>
+                  "name": "Tim" <br>
+              }, <br>
+              "success": true <br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <br> <!-- TODO: change for some ccs styling -->
+
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Students/&lt;int student_id&gt;</u> [POST]</h4>
+      </div>
+
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Enrolls student into a class <br>
+
+          <b>Route:</b> /students/&lt;int student_id&gt;<br>
+
+          <b>Accessibility:</b> Requires 'post:student-subject' permission <br>
+
+          <b>Required Data Structure:</b> <br>
+              student_id in url argument <br><br>
+
+              { <br>
+               "subject_id": "35", <i>required</i><br>
+              }
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
+            { <br>
+              "students": [ <br>
+                  { <br>
+                      "id": 3, <br>
+                      "last_name": "Musk", <br>
+                      "name": "Elon" <br>
+                  } <br>
+              ], <br>
+              "subject_id": 35, <br>
+              "success": true <br>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <br> <!-- TODO: change for some ccs styling -->
+
+    <div class="row">
+      <div class="col-md-3">
+        <h4><u>Subject/&lt;int subject_id&gt;/students</u> [GET]</h4>
+      </div>
+
+      <div class="col-md-4">
+        <p>
+          <b>Description:</b> Query all students enrolled in an specific class <br>
+
+          <b>Route:</b> Subject/&lt;int subject_id&gt;/students<br>
+
+          <b>Accessibility:</b> Requires 'get:students' permission <br>
+
+          <b>Required Data Structure:</b> <br>
+              subject_id in url argument
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row bg-secondary rounded">
+          <p class="text-light bg-dark rounded"><b>Response Example:</b></p>
+          <p class="text-light">
             { <br>
               "category": "Art -  Painting", <br>
               "students": [ <br>
@@ -360,10 +436,13 @@
               ], <br>
               "subject_id": 35, <br>
               "success": true <br>
-            } <br>
-      </p>
+            }
+          </p>
+        </div>
+      </div>
     </div>
 
   </div>
+
 
 {% endblock %}
